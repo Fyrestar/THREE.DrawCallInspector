@@ -1,5 +1,4 @@
 # THREE.DrawCallInspector
-Visualize draw call cost.
 This is a quick experimental attempt of a helper to monitor draw call costs. It could help spotting expensive draw calls caused by costly shaders. This is just experimental for now. I had some test runs it took some time till the expensive started to outweigh. A sort of hack is used in order to do measurements and to get as close as possible to the actual draw call without core modifications.
 
 **The output**:

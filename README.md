@@ -3,6 +3,8 @@ This is a quick experimental attempt of a helper to monitor draw call costs. It 
 
 ![dci](/vis4.png)
 
+**Example**: https://codepen.io/Fyrestar/full/PoGXVZv
+
 **The output**:
 
 The output is a map that renders all objects tinted with red weight by how much time they took relatively to each other. This means a average scene with equally expensive meshes in view is likely going to be mostly fully red, while if there is a more expensive objectt with an expensive shader it will be more red while the others fade towards white.

@@ -17,7 +17,7 @@ By default i recommend not using the original materials unless they are required
 
 Create the inspector, **call mount** in order to attach the UI and add the hooks into THREE, if you don't want to add/remove the code all time you want to inspect just only call mount when needed, such as commenting the line out or when a query parameter is given.
 
-    const dci = new DrawCallInspector( renderer, scene, camera );
+    const dci = new THREE.DrawCallInspector( renderer, scene, camera );
     dci.mount();
 
 In you render loop right at the beginning call `dci.update()` for the overlay output. And at your scene draw call, call `dci.begin()` before and `dci.end()` after your scene is rendered to the screen or a render target.

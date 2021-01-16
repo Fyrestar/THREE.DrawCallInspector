@@ -1,4 +1,4 @@
-const DrawCallInspector = ( () => {
+( () => {
 
 	// Author: Fyrestar https://mevedia.com (https://github.com/Fyrestar/THREE.DrawCallInspector)
 
@@ -522,8 +522,7 @@ const DrawCallInspector = ( () => {
 		}
 
 	};
-
-
-	return DrawCallInspector;
+	
+	THREE.DrawCallInspector = DrawCallInspector;
 
 })();

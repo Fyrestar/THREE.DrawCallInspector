@@ -1,6 +1,8 @@
 # THREE.DrawCallInspector
 This is a quick experimental attempt of a helper to monitor draw call costs. It could help spotting expensive draw calls caused by costly shaders. This is just experimental for now. I had some test runs it took some time till the expensive started to outweigh. A sort of hack is used in order to do measurements and to get as close as possible to the actual draw call without core modifications.
 
+![dci](/vis4.png)
+
 **The output**:
 
 The output is a map that renders all objects tinted with red weight by how much time they took relatively to each other. This means a average scene with equally expensive meshes in view is likely going to be mostly fully red, while if there is a more expensive objectt with an expensive shader it will be more red while the others fade towards white.

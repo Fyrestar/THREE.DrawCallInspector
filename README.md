@@ -11,7 +11,7 @@ Use ASDW keys to move the box, look around and you will spot a sphere in the cen
 
 **The output**:
 
-The output is a map that renders all objects tinted with red weight by how much time they took relatively to each other. This means a average scene with equally expensive meshes in view is likely going to be mostly fully red, while if there is a more expensive objectt with an expensive shader it will be more red while the others fade towards white.
+The output is a map that renders all objects tinted with red weight by how much time they took relative to each other. This means a average scene with equally expensive meshes in view is likely going to be mostly fully red, while if there is a more expensive objectt with an expensive shader it will be more red while the others fade towards white.
 
 **Important**:
 

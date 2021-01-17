@@ -46,7 +46,8 @@
 
 			const {
 				skipFrames,
-				useMaterials
+				useMaterials,
+				renderer
 			} = this;
 
 			const self = this;

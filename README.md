@@ -1,9 +1,13 @@
 # THREE.DrawCallInspector
 This is a quick experimental attempt of a helper to monitor draw call costs. It could help spotting expensive draw calls caused by costly shaders. This is just experimental for now. I had some test runs it took some time till the expensive started to outweigh. A sort of hack is used in order to do measurements and to get as close as possible to the actual draw call without core modifications.
 
+I made this relatively quick as experiment, if it turns out to be useful and somewhat reliable i will clean it up and further improve, the WebGL API is quite limited around this as well as how precise time can be measured.
+
 ![dci](/vis4.png)
 
 **Example**: https://codepen.io/Fyrestar/full/PoGXVZv
+
+Use ASDW keys to move the box, look around and you will spot a sphere in the center with a expensive shader.
 
 **The output**:
 
@@ -22,7 +26,7 @@ Create the inspector, **call mount** in order to attach the UI and add the hooks
     const dci = new THREE.DrawCallInspector( renderer, scene, camera );
     dci.mount();
 
-In you render loop right at the beginning call `dci.update()` for the overlay output. And at your scene draw call, call `dci.begin()` before and `dci.end()` after your scene is rendered to the screen or a render target.
+In your render loop right at the beginning call `dci.update()` for the overlay output. And at your scene draw call, call `dci.begin()` before and `dci.end()` after your scene is rendered to the screen or a render target.
 
     dci.update();
 

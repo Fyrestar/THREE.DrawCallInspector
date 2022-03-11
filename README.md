@@ -1,5 +1,4 @@
-![DCI_cover](https://user-images.githubusercontent.com/28584767/157942057-11a15a21-9bf2-4f76-9d77-3215b1d87344.jpg)
-
+![DCI-01](https://user-images.githubusercontent.com/28584767/157963593-1e27fc05-4783-44bb-97bb-b22a94d5bf76.jpg)
 
 # THREE.DrawCallInspector
 This is a quick experimental attempt of a helper to monitor draw call costs. It could help spotting expensive draw calls caused by costly shaders and geometries.

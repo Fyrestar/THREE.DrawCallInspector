@@ -68,4 +68,4 @@ When the results are lerped and they were shorter they will decrease slower by t
 
 **Compatibility**:
 
-This should work with all most recent 114+ revisions.
+This should work with all most recent 113+ revisions.

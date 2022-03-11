@@ -1,3 +1,6 @@
+![DCI_cover](https://user-images.githubusercontent.com/28584767/157942057-11a15a21-9bf2-4f76-9d77-3215b1d87344.jpg)
+
+
 # THREE.DrawCallInspector
 This is a quick experimental attempt of a helper to monitor draw call costs. It could help spotting expensive draw calls caused by costly shaders and geometries.
 
@@ -6,7 +9,7 @@ It is now using the disjoint timer extension that is available for WebGL2 giving
 
 I'm going to extend this further soon with different analysis options, multiple inspector views etc.
 
-![image](https://user-images.githubusercontent.com/28584767/157782016-8bad04da-d782-4213-a909-ebbca1b499a3.png)
+
 ![image](https://user-images.githubusercontent.com/28584767/157782042-0f13420f-6a99-40c0-bc48-0b9394667aa6.png)
 
 _(Demo scene not included in the example, it's from sketchfab, when using locally any gltf scene can be placed in the directory, enable the demoScene bool in the index.html to load the model instead the primitives example)_

@@ -1,27 +1,27 @@
 # THREE.DrawCallInspector
-This is a quick experimental attempt of a helper to monitor draw call costs. It could help spotting expensive draw calls caused by costly shaders. This is just experimental for now. I had some test runs it took some time till the expensive started to outweigh. A sort of hack is used in order to do measurements and to get as close as possible to the actual draw call without core modifications.
+This is a quick experimental attempt of a helper to monitor draw call costs. It could help spotting expensive draw calls caused by costly shaders and geometries.
 
-I made this relatively quick as experiment, if it turns out to be useful and somewhat reliable i will clean it up and further improve, the WebGL API is quite limited around this as well as how precise time can be measured.
+# Update
+It is now using the disjoint timer extension that is available for WebGL2 giving more precise results and being able to run non-blocking. For WebGL1 it falls back to the previous method. It now measure straight at the WebGL API draw call by proxying the function.
 
-![dci](/vis4.png)
+I'm going to extend this further soon with different analysis options, multiple inspector views etc.
+
+![image](https://user-images.githubusercontent.com/28584767/157782016-8bad04da-d782-4213-a909-ebbca1b499a3.png)
+![image](https://user-images.githubusercontent.com/28584767/157782042-0f13420f-6a99-40c0-bc48-0b9394667aa6.png)
+
+_(Demo scene not included in the example, it's from sketchfab, when using locally any gltf scene can be placed in the directory, enable the demoScene bool in the index.html to load the model instead the primitives example)_
 
 **Example**: https://codepen.io/Fyrestar/full/PoGXVZv
 
-Use ASDW keys to move the box, look around and you will spot a sphere in the center with a expensive shader.
+You see a sphere with a expensive shader, a high oply sphere in the middle and boxes, when going close you see the boxes become hotter even if the spheres are in view, as the boxes cover more pixels on the screen.
 
 **The output**:
 
-The output is a map that renders all objects tinted with red weight by how much time they took relative to each other. This means a average scene with equally expensive meshes in view is likely going to be mostly fully red, while if there is a more expensive objectt with an expensive shader it will be more red while the others fade towards white.
-
-**Important**:
-
-There is no way to get some exact timings of a draw call, but comparing all timing weighted by the longest seems to give a reasonable result. When a render call is measured after and before every render call it is tried to wait for it being finished, the more draw calls you have the slower this process will be - in a large scene this can take several seconds. Everything is pretty driver dependent, possibly browser as well so for now i can't tell if this will work reliable in every condition.
-
-By default i recommend not using the original materials unless they are required for special vertex transformations, that means skinned meshes or similar won't be animated in the output redscale which is not relevant anyway but enough to see what is causing cost.
+The output is a map that renders all objects tinted as a heatmap by how much time they took relative to each other. This means a average scene with equally expensive meshes in view is likely going to be mostly blueish, while if there is a more expensive objectt with an expensive shader it will be more red while the cheapest go towards solid blue.
 
 **Usage**:
 
-Create the inspector, **call mount** in order to attach the UI and add the hooks into THREE, if you don't want to add/remove the code all time you want to inspect just only call mount when needed, such as commenting the line out or when a query parameter is given.
+Create the inspector, **call mount** in order to attach the UI and add the hooks into THREE.
 
     const dci = new THREE.DrawCallInspector( renderer, scene, camera );
     dci.mount();
@@ -43,16 +43,29 @@ Click on the overlay for a capture or enter a number of frames in the input, so 
 * `renderer`
 * `scene`
 * `camera`
-* `useMaterials (true/false)`
+* `options`
+
+**Options**
+* `enabled (bool)`
+A flag to disable the tool, it's wont create UI or do anything, to leave it in the code but enable it when required.
+* `record (constant)`
+Either THREE.DrawCallInspector.RecordDraw (default) or THREE.DrawCallInspector.RecordRange, RecordDraw will measure right before and right after the actual WebGL drawcall, while RecordRender will measure before and after renderBufferDirect.
+* `wait (bool)`
+For WebGL2, will wait till all timing queries finished before making the next so the timings of the same draw call are available.
+* `enableMaterials (bool)`
 You have the option to let the plugin extend your scenes original materials which are going to be extended, this is only useful for custom and special shaders where the transformation otherwise would make it not visible without. 
+
+* `overlayStrength (float , 0-1)`
+When `enableMaterials` is enabled, this is how much the heat coloring is mixed with it's original rendered color, default is 0.5.
 * `skipFrames (number)`
-As mentioned measuring can take quite long the more draw calls you have, it is unlikely you will get a realtime preview so by default (-1) you have to click/touch the overlay to take a snapshot.
+For WebGL1 this should be set to manual (-1) to render by clicking on it, or a higher number as the blocking methods will cause a lagg when measuring, for WebGL2 the measurments can be done in realtime, however timings are fluctuating so it makes sense to use some delay before the next time queries are issued. 
 * `scale (float , 0-1)`
 The size of the overlay relative to the screen.
 * `fade (float, 0+-1 )`
-The results are lerped across captures to get closer to some average result, with a value of 1 the measured delta time is instantly used for the next capture preview.
-
+The results are lerped across captures to get closer to some average viewable result, with a value of 1 the measured delta time is instantly used for the next capture preview.
+* `bias (float, 0+-1 )`
+When the results are lerped and they were shorter they will decrease slower by this factor, if an object really doesn't take long it should be able to cool down then.
 
 **Compatibility**:
 
-This should work with all most recent 100+ revisions.
+This should work with all most recent 114+ revisions.
